@@ -1,0 +1,87 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="400"
+    mc:Ignorable="d"
+    x:Class="AuthenticationApp.Views.LoginView"
+    x:DataType="vm:LoginViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:AuthenticationApp.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.DataContext>
+        <vm:LoginViewModel />
+    </Design.DataContext>
+
+    <Border Background="#f5f5f5">
+        <Border
+            CornerRadius="8"
+            MaxWidth="400"
+            Padding="8">
+            <StackPanel Spacing="20">
+                <TextBlock
+                    FontSize="28"
+                    FontWeight="Bold"
+                    Foreground="#2c3e50"
+                    HorizontalAlignment="Center"
+                    Text="Login" />
+
+                <!--  Email  -->
+                <StackPanel Spacing="5">
+                    <TextBlock FontWeight="SemiBold" Text="Email" />
+                    <TextBox Text="{Binding Email}" Watermark="Enter your email" />
+                </StackPanel>
+
+                <!--  Password  -->
+                <StackPanel Spacing="5">
+                    <TextBlock FontWeight="SemiBold" Text="Password" />
+                    <TextBox
+                        PasswordChar="*"
+                        Text="{Binding Password}"
+                        Watermark="Enter your password" />
+                </StackPanel>
+
+                <!--  Error Message  -->
+                <TextBlock
+                    FontSize="12"
+                    Foreground="Red"
+                    IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                    Text="{Binding ErrorMessage}"
+                    TextWrapping="Wrap" />
+
+                <!--  login button  -->
+                <Button
+                    Background="#3498db"
+                    Command="{Binding LoginCommand}"
+                    Content="Login"
+                    Foreground="White"
+                    Height="40"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    IsVisible="{Binding !IsLoading}"
+                    VerticalContentAlignment="Center" />
+
+                <!--  Loading bar  -->
+                <ProgressBar
+                    Height="4"
+                    IsIndeterminate="True"
+                    IsVisible="{Binding IsLoading}" />
+
+                <!--  Navigate to register  -->
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Foreground="#7f8c8d" Text="Don't have an account?" />
+                    <Button
+                        Background="Transparent"
+                        Command="{Binding NavigateToRegisterCommand}"
+                        Content="Register here"
+                        Foreground="#3498db"
+                        Margin="0,-1"
+                        Padding="0" />
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Border>
+
+</UserControl>
